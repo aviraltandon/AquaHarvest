@@ -503,9 +503,16 @@ async function readLoop() {
   }
 }
 
+/* The ESP32 ROM bootloader prints its own boot log (unrelated to the sketch)
+   every time the port opens and resets the board via DTR/RTS. Recognize and
+   silently drop those lines instead of flagging them as bad data. */
+const BOOT_CHATTER_RE = /^(ets |rst:|configsip:|clk_drv:|mode:|load:|entry |ho |waiting for download|invalid header)/;
+
 /* Parse one CSV line: temp,humidity,dewpoint
    Bad data shows an error state, never "NaN". */
 function handleLine(line) {
+  if (BOOT_CHATTER_RE.test(line)) return;
+
   const parts = line.split(',').map(s => s.trim());
   if (parts.length < 3) return badData(line);
 
