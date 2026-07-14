@@ -21,9 +21,10 @@
  *  ---------------------------------------------------------------------------
  *  ESP32-SPECIFIC NOTES
  *  ---------------------------------------------------------------------------
- *   * Serial runs at 115200 baud (more reliable than 9600 on the ESP32's
- *     USB-serial bridge). The companion web dashboard is already set to
- *     115200 (its BAUD_RATE constant) to match.
+ *   * Serial runs at 74880 baud. Some ESP32 boards' USB-serial bridges don't
+ *     transmit cleanly at 115200 or 9600; 74880 (the ROM bootloader's own
+ *     fixed rate) was confirmed working on this hardware instead. The
+ *     companion web dashboard's BAUD_RATE constant is set to match.
  *
  *  ---------------------------------------------------------------------------
  *  EXACT SERIAL OUTPUT FORMAT (one line every 3 s, no labels/units/extra text)
@@ -59,8 +60,8 @@
 DHT dht(DHTPIN, DHTTYPE);
 
 void setup() {
-  // 115200 baud — the web dashboard's BAUD_RATE must be set to match this.
-  Serial.begin(115200);
+  // 74880 baud — the web dashboard's BAUD_RATE must be set to match this.
+  Serial.begin(74880);
   dht.begin();
 }
 

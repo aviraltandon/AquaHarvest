@@ -370,7 +370,7 @@
 /* =================================================================
    CONFIGURATION — adjust these to tune the dashboard
    ================================================================= */
-const BAUD_RATE     = 115200; // must match the ESP32 sketch's Serial.begin(115200)
+const BAUD_RATE     = 74880; // must match the ESP32 sketch's Serial.begin(74880) — this board's USB-serial chip doesn't run cleanly at 115200
 const MAX_CHART_PTS = 100;    // rolling window length on the chart
 const MAX_TABLE_ROWS = 20;    // how many recent rows to keep in the table
 
