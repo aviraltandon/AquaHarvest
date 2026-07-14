@@ -50,6 +50,12 @@
 #define READ_INTERVAL_MS  3000  // one reading every 3 seconds
                                 // (DHT22 must not be polled faster than ~2 s)
 
+// ---- Debugging ---------------------------------------------------------
+// Set to 0 once the sensor is reading reliably — this prints a line on every
+// failed read, which the web dashboard will show as "bad data" (fine for
+// troubleshooting, noisy for normal use).
+#define DEBUG_DHT_FAILURES  1
+
 DHT dht(DHTPIN, DHTTYPE);
 
 void setup() {
@@ -66,6 +72,9 @@ void loop() {
   // If either read failed (NaN), skip this cycle entirely — never print
   // malformed data. Just wait and retry on the next loop.
   if (isnan(humidity) || isnan(temp)) {
+#if DEBUG_DHT_FAILURES
+    Serial.println("DEBUG: DHT22 read failed (NaN) -- check wiring: VCC->3V3, DATA->GPIO4, GND->GND");
+#endif
     delay(READ_INTERVAL_MS);
     return;
   }
