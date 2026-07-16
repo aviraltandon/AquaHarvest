@@ -254,8 +254,25 @@
   .sdg-text { position: relative; z-index: 1; }
   .sdg-text .eyebrow { font-size: 11.5px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; opacity: .82; }
   .sdg-text h2 { margin: 6px 0 0; font-size: 20px; font-weight: 700; letter-spacing: -.2px; color: #fff; display: block; line-height: 1.3; }
-  .sdg-text p { margin: 6px 0 0; font-size: 13.5px; opacity: .92; max-width: 640px; }
+  .sdg-text p { margin: 6px 0 0; font-size: 13.5px; opacity: .92; max-width: 680px; }
+  .sdg-text p + p { margin-top: 8px; }
   @media (max-width: 560px) { .sdg { flex-direction: column; text-align: center; gap: 18px; } .sdg-text h2 { font-size: 18px; } }
+
+  /* ---------------- Explainer panel (Peltier effect, etc.) ---------------- */
+  .explain {
+    max-width: 1180px;
+    margin: 18px auto 0;
+    padding: 22px 28px;
+    border-radius: 20px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+  }
+  .explain .eyebrow { font-size: 11.5px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; opacity: .65; color: var(--brand); }
+  .explain h2 { margin: 6px 0 10px; font-size: 19px; font-weight: 700; letter-spacing: -.2px; color: var(--ink); }
+  .explain p { margin: 0 0 10px; font-size: 13.5px; line-height: 1.55; color: var(--ink-2); }
+  .explain p:last-child { margin-bottom: 0; }
+  .explain code { font-size: 12px; }
 </style>
 
 <header>
@@ -357,9 +374,17 @@
   </div>
   <div class="sdg-text">
     <div class="eyebrow">Our Mission</div>
-    <h2>Aiming to solve SDG 6 — ensuring availability of clean water.</h2>
-    <p>Harvesting drinkable water from the air, one drop at a time.</p>
+    <h2>Advancing SDG 6 — ensuring availability of clean water.</h2>
+    <p>Condensing atmospheric humidity into liquid water, one drop at a time. Note: water straight off the cold plate is <em>not</em> automatically potable — like any harvested water (rain, dew, or air-sourced), it needs basic post-treatment (a fine filter, UV or boiling, and mineral/pH balancing) to meet drinking-water standards, since it can pick up dust, microbes, or trace VOCs from the surrounding air and hardware.</p>
+    <p>Because the whole rig only draws the wattage of a Peltier module and a fan, it runs comfortably off a small solar panel + battery bank, making it viable completely off-grid. That opens it up beyond drinking water: as a supplemental irrigation or misting source for greenhouses and small-scale agriculture in arid or water-stressed regions, where it recovers water that would otherwise just stay lost in the air. Scaled up, decentralized atmospheric harvesting like this reduces reliance on groundwater extraction and long-distance water transport — both of which carry a real environmental and energy cost — making it a small but genuine piece of the modern push toward climate-resilient, off-grid water infrastructure.</p>
   </div>
+</section>
+
+<section class="explain" aria-label="How the Peltier effect makes water">
+  <div class="eyebrow">How it works</div>
+  <h2>The Peltier effect — turning electricity into a cold surface</h2>
+  <p>A Peltier module (also called a TEC, thermoelectric cooler) is a solid-state device made of paired p-type and n-type semiconductor blocks sandwiched between two ceramic plates. When DC current is driven through the junctions, charge carriers absorb heat energy on one side to cross into the next semiconductor and release it on the other — a phenomenon called the <strong>Peltier effect</strong>. The net result: one face of the module gets cold, the other gets hot, with no moving parts and no refrigerant.</p>
+  <p>In AquaHarvest, the cold face is pushed below the surrounding air's <strong>dew point</strong> — the temperature at which air can no longer hold all its water vapor. Once the plate is colder than the dew point, moisture in the air condenses on it directly, the same way condensation forms on a cold glass on a humid day. The condensed droplets are collected and channeled into a reservoir, while the hot face (fitted with a heatsink and fan) dumps the extracted heat back into the room. That's why the dashboard tracks dew point live: it's the threshold the cold plate has to beat for water to actually form.</p>
 </section>
 
 <footer>
